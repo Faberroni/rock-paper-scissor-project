@@ -4,4 +4,4 @@ function getComputerChoice () {
     console.log(random)
 }
 
-console.log(getComputerChoice())
+getComputerChoice()
