@@ -1,13 +1,13 @@
+
 function getComputerChoice () {
-    var hand = ['Rock', 'Paper', 'Scissor']
-    var random = hand[(Math.random() * hand.length) | 0]
-    console.log(random)
-    return random
+    var hand = ['rock', 'paper', 'scissor'];
+    var random = hand[(Math.random() * hand.length) | 0];
+    return random;
 }
 
 function playerChoice() {
-    let choice = prompt('Pick your hand!')
-    hand = choice.toLowerCase()
+    let choice = prompt('Pick your hand!');
+    hand = choice.toLowerCase();
     switch (hand) {
         case 'rock':
             console.log('you picked rock');
@@ -20,8 +20,27 @@ function playerChoice() {
             break;
         default:
             console.error('not a legal choice please pick again');
-            playerChoice();
+            break;
     }
-    console.log(hand)
-    return hand
+    return hand;
 }
+
+
+function playRound(playerHand, computerHand) {
+    console.log(playerHand);
+    console.log(computerHand);
+
+    if (playerHand === computerHand ) {
+         console.log("it's a draw");
+    } else if (
+        (playerHand === "rock" && computerHand === "scissor") ||
+        (playerHand === "scissor" && computerHand === "paper") ||
+        (playerHand === "paper" && computerHand === "rock")
+    ) {
+         console.log(`you win`);
+    } else {
+        console.log(`you lose`);
+    }
+}
+
+playRound(playerChoice(), getComputerChoice());
