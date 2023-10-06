@@ -1,11 +1,11 @@
 
-function getComputerChoice () {
+let getComputerChoice = function () {
     var hand = ['rock', 'paper', 'scissor'];
     var random = hand[(Math.random() * hand.length) | 0];
     return random;
 }
 
-function playerChoice() {
+let playerChoice = function () {
     let choice = prompt('Pick your hand!');
     hand = choice.toLowerCase();
     switch (hand) {
@@ -26,7 +26,7 @@ function playerChoice() {
 }
 
 
-function playRound(playerHand, computerHand) {
+let playRound = function (playerHand, computerHand) {
     console.log(playerHand);
     console.log(computerHand);
 
