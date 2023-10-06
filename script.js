@@ -43,4 +43,3 @@ let playRound = function (playerHand, computerHand) {
     }
 }
 
-playRound(playerChoice(), getComputerChoice());
