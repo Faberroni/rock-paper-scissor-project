@@ -1,6 +1,18 @@
-.btn-container {
+.container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 100px;
+}
+
+body {
+    width: 50%;
+    max-width: 800px;
+    min-width: 480px;
+    margin: 0 auto;
+  }
+h1 {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
 }
