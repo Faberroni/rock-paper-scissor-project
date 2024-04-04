@@ -1,11 +1,13 @@
 let roundsPlayed = 0;
 let playerWins = 0;
 let computerWins = 0;
+let roundResult = "";
 
 const scissorChoice = document.querySelector("#scissor-choice");
 const rockChoice = document.querySelector("#rock-choice");
 const paperChoice = document.querySelector("#paper-choice");
 const resetButton = document.querySelector(".resetBtn");
+const endgameMsg = document.querySelector(".endgame");
 
 let getComputerChoice = function () {
   let hand = ["rock", "paper", "scissor"];
@@ -15,84 +17,98 @@ let getComputerChoice = function () {
 };
 
 let playRound = function (playerHand, computerHand) {
-  console.log(`The player picked: ${playerHand}`);
-  console.log(`The computer picked: ${computerHand}`);
-  let result;
-
   if (playerHand === computerHand) {
-    console.log("it's a draw");
-    result = "draw";
+    document.querySelector(".roundAnnouncement").innerText = "It's a draw!";
+    roundResult = "draw";
   } else if (
     (playerHand === "rock" && computerHand === "scissor") ||
     (playerHand === "scissor" && computerHand === "paper") ||
     (playerHand === "paper" && computerHand === "rock")
   ) {
-    console.log(`you win`);
-    result = "win";
+    playerWins++;
+    document.querySelector(".roundAnnouncement").innerText =
+      "Player wins this round!";
+    document.querySelector(".playerWinCount").innerText = playerWins;
+    roundResult = "win";
   } else {
-    console.log(`you lose`);
-    result = "lose";
-  }
-  return result;
-};
-
-function playGame(playerHand) {
-  game = playRound(playerHand, getComputerChoice());
-
-  switch (game) {
-    case "win":
-      playerWins++;
-      document.querySelector(".roundAnnouncement").innerText =
-        "Player wins this round!";
-      document.querySelector(".playerWinCount").innerText = playerWins;
-      break;
-    case "lose":
-      computerWins++;
-      document.querySelector(".roundAnnouncement").innerText =
-        "Computer wins this round";
-      document.querySelector(".computerWinCount").innerText = computerWins;
-    default:
-      document.querySelector(".roundAnnouncement").innerText = "It's a draw!";
+    computerWins++;
+    document.querySelector(".computerWinCount").innerText = computerWins;
+    document.querySelector(".roundAnnouncement").innerText =
+      "Computer wins this round";
+    roundResult = "lose";
   }
   roundsPlayed++;
   document.querySelector(".roundsCount").innerText = roundsPlayed;
-  
+  document.querySelector(
+    ".gameplay"
+  ).innerText = `Player chooses ${playerHand} against ${computerHand}`;
+};
+
+function setFinalMessage() {
+  return playerWins > computerWins
+    ? (endgameMsg.innerText = "You won!")
+    : (endgameMsg.innerText = "You lost...");
 }
 
+function isGameOver() {
+  return playerWins === 5 || computerWins === 5;
+}
+
+function handleClick(playerHand) {
+  if (isGameOver()) {
+    return;
+  }
+  const computerHand = getComputerChoice();
+  playRound(playerHand, computerHand);
+
+  if (isGameOver()) {
+    setFinalMessage();
+  }
+}
+
+// function playGame(playerHand) {
+//   game = playRound(playerHand, getComputerChoice());
+
+//   switch (game) {
+//     case "win":
+//       playerWins++;
+//       document.querySelector(".roundAnnouncement").innerText =
+//         "Player wins this round!";
+//       document.querySelector(".playerWinCount").innerText = playerWins;
+//       break;
+//     case "lose":
+//       computerWins++;
+//       document.querySelector(".roundAnnouncement").innerText =
+//         "Computer wins this round";
+//       document.querySelector(".computerWinCount").innerText = computerWins;
+//     default:
+//       document.querySelector(".roundAnnouncement").innerText = "It's a draw!";
+//   }
+//   roundsPlayed++;
+//   document.querySelector(".roundsCount").innerText = roundsPlayed;
+
+// }
+
 function resetGame() {
-  location.reload();
+  playerWins = 0;
+  computerWins = 0;
+  roundsPlayed = 0;
+  document.querySelector(".playerWinCount").innerText = playerWins;
+  document.querySelector(".computerWinCount").innerText = computerWins;
+  document.querySelector(".roundsCount").innerText = roundsPlayed;
+  document.querySelector(".gameplay").innerText = ``;
+  document.querySelector(".roundAnnouncement").innerText = "";
+  document.querySelector(".roundAnnouncement").innerText = "";
+  endgameMsg.innerText = "";
 }
 
 scissorChoice.addEventListener("click", () => {
-  playGame("scissor");
+  handleClick("scissor");
 });
 rockChoice.addEventListener("click", () => {
-  playGame("rock");
+  handleClick("rock");
 });
 paperChoice.addEventListener("click", () => {
-  playGame("paper");
+  handleClick("paper");
 });
-resetButton.addEventListener("click", () => {
-  resetGame();
-});
-
-
-// let playerChoice = function () {
-//     let choice = prompt('Pick your hand!');
-//     hand = choice.toLowerCase();
-//     switch (hand) {
-//         case 'rock':
-//             console.log('you picked rock');
-//             break;
-//         case 'paper':
-//             console.log('you picked paper');
-//             break;
-//         case 'scissor':
-//             console.log('you picked scissor');
-//             break;
-//         default:
-//             console.error('not a legal choice please pick again');
-//             break;
-//     }
-//     return hand;
-// }
+resetButton.addEventListener("click", resetGame);

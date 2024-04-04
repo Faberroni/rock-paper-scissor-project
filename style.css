@@ -22,3 +22,9 @@ h1 {
     justify-content: center;
     margin: 15px;
 }
+
+.resetBtn{
+    justify-content: center;
+    justify-self: center;
+    margin: 15px;
+}
