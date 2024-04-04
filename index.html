@@ -8,7 +8,7 @@
   </head>
   <body>
     <h1>Simple Rock Paper Scissor</h1>
-    <div class="container">
+    <div class="hand-container">
       <img
         src="assets/hand-paper.svg"
         alt="Paper for Rock Paper Scissor Game"
@@ -26,6 +26,13 @@
         alt="Scissor for Rock Paper Scissor Game"
         width="100px"
         id="scissor-choice" />
+    </div>
+    <h2 class="roundAnnouncement"></h2>
+    <h2>Rounds: <span class="roundsCount">0</span></h2>
+    <h2>Player: <span class="playerWinCount">0</span></h2>
+    <h2>Computer: <span class="computerWinCount">0</span></h2>
+    <div>
+      <button class="resetBtn"> Reset </button>
     </div>
     <script src="script.js"></script>
   </body>
